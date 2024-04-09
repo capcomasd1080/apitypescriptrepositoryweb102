@@ -71,7 +71,7 @@ export const findByTitle = async (title: string , parameters: Object ) : Promise
      
         if(parametersPar["notlimit"]){
             notLimit = true;
-            console.log("notLimit");
+            //console.log("notLimit");
         }
         if(parametersPar["limit"]){
             try{

@@ -57,7 +57,7 @@ const findByTitle = (title, parameters) => __awaiter(void 0, void 0, void 0, fun
     if (Object.keys(parameters).length > 0) {
         if (parametersPar["notlimit"]) {
             notLimit = true;
-            console.log("notLimit");
+            //console.log("notLimit");
         }
         if (parametersPar["limit"]) {
             try {
