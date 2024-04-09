@@ -53,7 +53,12 @@ const findByTitle = (title, parameters) => __awaiter(void 0, void 0, void 0, fun
     const parametersPar = JSON.parse(stringifySafe(parameters));
     let limit = 25;
     let offsetSearch = 0;
+    let notLimit = false;
     if (Object.keys(parameters).length > 0) {
+        if (parametersPar["notlimit"]) {
+            notLimit = true;
+            console.log("notLimit");
+        }
         if (parametersPar["limit"]) {
             try {
                 limit = parametersPar["limit"];
@@ -85,7 +90,7 @@ const findByTitle = (title, parameters) => __awaiter(void 0, void 0, void 0, fun
     let limitExceed = false;
     for (let k in parameters) {
         //console.log(allAlbums.length + " a3") ;
-        if (k !== "limit" && k !== "offset") {
+        if (k !== "limit" && k !== "offset" && k !== "notlimit") {
             photoFind = [];
             filterProperties = true;
             Object.entries(allAlbums).forEach(([key, values]) => {
@@ -224,13 +229,13 @@ const findByTitle = (title, parameters) => __awaiter(void 0, void 0, void 0, fun
         }
         //console.log(offsetSearch + ' aaa ');
         //offsetSearch =47;
-        if (offsetSearch == 0) {
+        if (offsetSearch == 0 && notLimit == false) {
             photoFind = photoFind.slice(offsetSearch, Number(offsetSearch) + Number(limit));
         }
-        else if ((Number(offsetSearch) + Number(limit) - 1) > allAlbums.length) {
+        else if ((Number(offsetSearch) + Number(limit) - 1) > allAlbums.length && notLimit == false) {
             photoFind = photoFind.slice(offsetSearch);
         }
-        else {
+        else if (notLimit == false) {
             photoFind = photoFind.slice(offsetSearch, Number(offsetSearch) + Number(limit));
         }
     }

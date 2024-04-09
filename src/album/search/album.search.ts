@@ -65,11 +65,14 @@ export const findByTitle = async (title: string , parameters: Object ) : Promise
 
     let limit :number = 25;
     let offsetSearch : number = 0;
+    let notLimit : boolean = false;
 
     if(Object.keys(parameters).length>0){
      
-       
-
+        if(parametersPar["notlimit"]){
+            notLimit = true;
+            console.log("notLimit");
+        }
         if(parametersPar["limit"]){
             try{
                
@@ -109,7 +112,7 @@ export const findByTitle = async (title: string , parameters: Object ) : Promise
 
         //console.log(allAlbums.length + " a3") ;
           
-        if ( k !== "limit" &&  k !== "offset"){
+        if ( k !== "limit" &&  k !== "offset" && k!=="notlimit"){
             photoFind = [];
             filterProperties = true;
             Object.entries(allAlbums).forEach(([key,values])=>{ 
@@ -277,11 +280,11 @@ export const findByTitle = async (title: string , parameters: Object ) : Promise
 
     //offsetSearch =47;
 
-    if(offsetSearch == 0 ){
+    if(offsetSearch == 0 && notLimit == false ){
         photoFind = photoFind.slice(offsetSearch,Number(offsetSearch)+Number(limit) );
-    }else if( (Number(offsetSearch) + Number(limit) - 1) > allAlbums.length   ){
+    }else if( (Number(offsetSearch) + Number(limit) - 1) > allAlbums.length  && notLimit == false  ){
         photoFind = photoFind.slice(offsetSearch);
-    }else{
+    }else if(notLimit == false ){
         
         photoFind = photoFind.slice(offsetSearch,Number(offsetSearch)+Number(limit));
     }
