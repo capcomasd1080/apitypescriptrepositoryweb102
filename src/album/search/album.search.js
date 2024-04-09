@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findByTitle = exports.searchData = exports.findOne = exports.findAll = void 0;
+exports.findAlbum = exports.findUser = exports.findByTitle = exports.searchData = exports.findOne = exports.findAll = void 0;
 const fs_1 = __importDefault(require("fs"));
 let photo = loadAlbums();
 const stringifySafe = require('json-stringify-safe');
@@ -256,3 +256,27 @@ function loadAlbums() {
         return {};
     }
 }
+const findUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    let valueID;
+    valueID = "";
+    Object.entries(photo).forEach(([key, value]) => {
+        if (value.album.user.id.toString() === id) {
+            valueID = key;
+            return;
+        }
+    });
+    return photo[valueID].album.user;
+});
+exports.findUser = findUser;
+const findAlbum = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    let valueID;
+    valueID = "";
+    Object.entries(photo).forEach(([key, value]) => {
+        if (value.album.id.toString() === id) {
+            valueID = key;
+            return;
+        }
+    });
+    return photo[valueID].album;
+});
+exports.findAlbum = findAlbum;

@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express"
-import { Album, Photo } from "../album"
+import { Album, Photo, User } from "../album"
 import * as searchData from "./album.search"
 import {StatusCodes} from "http-status-codes"
 import qs from "qs";
@@ -91,5 +91,40 @@ albumRouter.get("/externalapi/photos", async (req : Request, res : Response) => 
 
     } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
+    }
+ })
+
+
+ albumRouter.get("/externalapi/users/:id", async (req : Request, res : Response) => {
+    try {
+        const user : User = await searchData.findUser( req.params.id)
+
+        if (!user) {
+            return res.status(StatusCodes.NOT_FOUND).json({error : `photo not found!`})
+        }
+        
+
+
+        return res.status(StatusCodes.OK).json({user})
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
+    }
+ })
+
+
+
+ albumRouter.get("/externalapi/albums/:id", async (req : Request, res : Response) => {
+    try {
+        const album : Album = await searchData.findAlbum( req.params.id)
+
+        if (!album) {
+            return res.status(StatusCodes.NOT_FOUND).json({error : `photo not found!`})
+        }
+        
+
+
+        return res.status(StatusCodes.OK).json({album})
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
     }
  })

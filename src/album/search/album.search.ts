@@ -314,5 +314,38 @@ function loadAlbums () : Photos{
 }
 
 
+export const findUser = async (id: string): Promise<User> => 
+    
+    {
+      let valueID : string ; 
+      valueID = "";
+       Object.entries(photo).forEach(([key,value])=>{ 
+              if (value.album.user.id.toString() === id){
+                  valueID = key;
+                  return;
+              }
+      })
+      return photo[valueID].album.user;
+  };
 
 
+
+
+  export const findAlbum = async (id: string): Promise<Album> => 
+    
+    {
+      let valueID : string ; 
+      valueID = "";
+       Object.entries(photo).forEach(([key,value])=>{ 
+              if (value.album.id.toString() === id){
+                  valueID = key;
+                  return;
+              }
+      })
+      return photo[valueID].album;
+  };
+
+
+
+
+  

@@ -101,3 +101,27 @@ exports.albumRouter.get("/externalapi/photos", (req, res) => __awaiter(void 0, v
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
     }
 }));
+exports.albumRouter.get("/externalapi/users/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield searchData.findUser(req.params.id);
+        if (!user) {
+            return res.status(http_status_codes_1.StatusCodes.NOT_FOUND).json({ error: `photo not found!` });
+        }
+        return res.status(http_status_codes_1.StatusCodes.OK).json({ user });
+    }
+    catch (error) {
+        return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    }
+}));
+exports.albumRouter.get("/externalapi/albums/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const album = yield searchData.findAlbum(req.params.id);
+        if (!album) {
+            return res.status(http_status_codes_1.StatusCodes.NOT_FOUND).json({ error: `photo not found!` });
+        }
+        return res.status(http_status_codes_1.StatusCodes.OK).json({ album });
+    }
+    catch (error) {
+        return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    }
+}));
